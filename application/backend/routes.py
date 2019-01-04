@@ -45,7 +45,24 @@ def logout():
 	logout_user()
 	return redirect(url_for('backend.login'))
 
+@back.route('/delete/<userid>')
+@admin_required
+def delete_user(userid):
+	user = User.query.filter_by(public_id=userid).first()
+	if user:
+		db.session.delete(user)
+		db.session.commit()
+		return redirect(url_for('backend.users'))
 
+@back.route('/changepassword/<userid>')
+@admin_required
+def change_pass(userid):
+	return "Change Password"
+
+@back.route('/makeadmin/<userid>')
+@admin_required
+def make_admin(userid):
+	return "Promote to admin"
 
 
 

@@ -84,7 +84,3 @@ def register():
 def myaccount():
 	return "This is the account page for: {}".format(current_user.email)
 
-@mod.route('/apply/<pid>')
-@login_required
-def apply(pid):
-	return "Apply page."
