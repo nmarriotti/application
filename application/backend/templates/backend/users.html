@@ -32,6 +32,7 @@ Users - NLMK PartManager
         <tr>
             <th>ID</th>
             <th>Username</th>
+            <th>Type</th>
             <th>Date Created</th>
             <th>Actions</th>
         </tr>
@@ -41,6 +42,10 @@ Users - NLMK PartManager
         <tr>
             <td>{{ user.id }}</td>
             <td>{{ user.username }}</td>
+            <td>
+            	{% if user.admin %}
+            		<span class="badge">ADMINISTRATOR</span>
+            	{% endif %}
             <td>{{ user.created_on }}</td>
             <td><a href="{{ url_for('backend.change_pass', userid=user.public_id) }}" title="Change Password" class="btn btn-sm btn-primary"><i class="fas fa-key"></i></a>
             	<a href="{{ url_for('backend.delete_user', userid=user.public_id) }}" title="Delete" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a> 
