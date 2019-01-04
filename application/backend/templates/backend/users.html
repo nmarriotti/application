@@ -22,6 +22,35 @@ Users - NLMK PartManager
   <li class="active">Users</li>
 </ol>
 		<h3>Current Users</h3><hr>
+
+		<div class="panel panel-default">
+		  <!-- Default panel contents -->
+		  <div class="panel-heading">All Users</div>
+		  <!-- Table -->
+		  <table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Date Created</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    	{% for user in users %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.created_on }}</td>
+            <td><button title="Change Password" class="btn btn-sm btn-primary"><i class="fas fa-key"></i></button>
+            	<button title="Delete" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button> 
+            	<button title="Grant administrator rights" class="btn btn-sm btn-success"><i class="fas fa-user-shield"></i></button>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+		</div>
 </div>
 
 {% endblock %}

@@ -33,20 +33,12 @@ def index():
 @back.route('/users')
 @admin_required
 def users():
-	return render_template('backend/users.html')
+	users = User.query.all()
+	return render_template('backend/users.html', users=users)
 
 @back.route('/login', methods=['GET', 'POST'])
 def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        user = User.get_by_username(form.username.data)
-        if user:
-        	if user.check_password(form.password.data):
-	            login_user(user)
-	            print(current_user.is_authenticated)
-	            return redirect(request.args.get('next') or url_for('backend.index'))
-        flash('Invalid username and/or password.')
-    return render_template('backend/auth/login.html', form=form)
+    return redirect(url_for('frontend.login'))
 
 @back.route('/logout')
 def logout():
