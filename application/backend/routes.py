@@ -28,7 +28,12 @@ def admin_required(f):
 @back.route('/')
 @admin_required
 def index():
-	return "Admin area"
+	return render_template('backend/index.html')
+
+@back.route('/users')
+@admin_required
+def users():
+	return render_template('backend/users.html')
 
 @back.route('/login', methods=['GET', 'POST'])
 def login():

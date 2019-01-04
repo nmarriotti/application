@@ -1,0 +1,27 @@
+{% extends 'frontend/master.html' %}
+
+
+{% block title %}
+Users - NLMK PartManager
+{% endblock %}
+
+{% block content %}
+<div class="row">
+
+</div>
+<div class="col-md-1 text-center">
+	<h4>Navigation</h4>
+	<a href="#">Inventory</a><br>
+	<a href="#">Users</a>
+</div>
+
+<div class="col-md-10">
+		<ol class="breadcrumb">
+  <li><a href="{{ url_for('frontend.index') }}">Home</a></li>
+  <li><a href="{{ url_for('backend.index') }}">Admin Control Panel</a></li>
+  <li class="active">Users</li>
+</ol>
+		<h3>Current Users</h3><hr>
+</div>
+
+{% endblock %}
