@@ -5,7 +5,7 @@ from application import login_manager, app
 import uuid
 import datetime
 import jwt
-from .forms import LoginForm
+from .forms import LoginForm, ChangePasswordForm
 from functools import wraps
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -52,17 +52,48 @@ def delete_user(userid):
 	if user:
 		db.session.delete(user)
 		db.session.commit()
+		flash(user.username + " has been deleted")
 		return redirect(url_for('backend.users'))
 
-@back.route('/changepassword/<userid>')
+@back.route('/changepassword/<userid>', methods=['GET', 'POST'])
 @admin_required
 def change_pass(userid):
-	return "Change Password"
+	form = ChangePasswordForm()
+	if form.validate_on_submit():
+		user = User.query.filter_by(public_id=userid).first()
+		if user:
+			# create user
+			user.password_hash=generate_password_hash(form.password.data)
+			db.session.commit()
+			flash(user.username + "'s password has been updated")
+			return redirect(url_for('backend.users'))
+		else:
+			flash('User not found')
+	else:
+		user = User.query.filter_by(public_id=userid).first()
+		if user:
+			return render_template('backend/changepassword.html', username=user.username, form=form)
+		else:
+			flash("User not found")
+	return redirect(url_for('backend.users'))
 
 @back.route('/makeadmin/<userid>')
 @admin_required
 def make_admin(userid):
-	return "Promote to admin"
+	user = User.query.filter_by(public_id=userid).first()
+	if user:
+		user.admin = True
+		db.session.commit()
+		flash(user.username + " is now an administrator")
+	return redirect(url_for('backend.users'))
 
-
+@back.route('/makestandard/<userid>')
+@admin_required
+def make_standard(userid):
+	user = User.query.filter_by(public_id=userid).first()
+	if user:
+		user.admin = False
+		db.session.commit()
+		flash(user.username + " is now a standard user")
+	return redirect(url_for('backend.users'))
 

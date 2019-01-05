@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+
+    <!-- External CSS libraries -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='frontend/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{{ url_for('frontend.index') }}">NLMK PartManager</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <form class="navbar-form navbar-left">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Find Parts">
+        </div>
+        <button type="submit" class="btn btn-info">Submit</button>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        {% if current_user.is_authenticated %}
+<form class="navbar-form navbar-left">
+<!-- Single button -->
+<div class="btn-group">
+  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+   {{ current_user.username }} <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+     {% if current_user.admin %}
+          <li><a href="{{ url_for('backend.index') }}"><i class="fas fa-sign-out"></i> Manage (Admin Only)</a></li>
+     {% endif %}
+    <li><a href="{{ url_for('frontend.logout') }}"><i class="fas fa-sign-out"></i> Logout</a></li>
+  </ul>
+</div>
+        {% endif %}
+      </ul>
+    </form>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<div class="row">
+
+</div>
+                            {% with messages = get_flashed_messages() %}
+                                  {% if messages %}
+                                    {% for message in messages %}
+                                      <center><p style="color:red;">{{ message }}</p></center>
+                                    {% endfor %}
+                                  {% endif %}
+                            {% endwith %}
+{% block content %}
+
+{% endblock %}
+
+
+<script src="{{ url_for('static', filename='frontend/js/jquery-2.2.0.min.js') }}"></script>
+<script src="{{ url_for('static', filename='frontend/js/bootstrap.min.js') }}"></script>
+
+</body>
+</html>

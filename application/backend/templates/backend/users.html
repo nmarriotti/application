@@ -1,4 +1,4 @@
-{% extends 'frontend/master.html' %}
+{% extends 'backend/master.html' %}
 
 
 {% block title %}
@@ -6,9 +6,7 @@ Users - NLMK PartManager
 {% endblock %}
 
 {% block content %}
-<div class="row">
 
-</div>
 <div class="col-md-1 text-center">
 	<h4>Navigation</h4>
 	<a href="#">Inventory</a><br>
@@ -44,12 +42,23 @@ Users - NLMK PartManager
             <td>{{ user.username }}</td>
             <td>
             	{% if user.admin %}
-            		<span class="badge">ADMINISTRATOR</span>
+            		<span class="badge badge-warning">Admin</span>
             	{% endif %}
             <td>{{ user.created_on }}</td>
-            <td><a href="{{ url_for('backend.change_pass', userid=user.public_id) }}" title="Change Password" class="btn btn-sm btn-primary"><i class="fas fa-key"></i></a>
-            	<a href="{{ url_for('backend.delete_user', userid=user.public_id) }}" title="Delete" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a> 
-            	<a href="{{ url_for('backend.make_admin', userid=user.public_id) }}" title="Grant administrator rights" class="btn btn-sm btn-success"><i class="fas fa-user-shield"></i></a>
+            <td> 
+            	{% if user.username == "admin" %}
+					<a href="{{ url_for('backend.change_pass', userid=user.public_id) }}" title="Change Password" class="btn btn-sm btn-primary"><i class="fas fa-key"></i></a>
+				{% elif user.admin and not current_user.username == user.username %}
+					<a href="{{ url_for('backend.change_pass', userid=user.public_id) }}" title="Change Password" class="btn btn-sm btn-primary"><i class="fas fa-key"></i></a>
+            		<a href="{{ url_for('backend.delete_user', userid=user.public_id) }}" title="Delete" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
+            		<a href="{{ url_for('backend.make_standard', userid=user.public_id) }}" title="Convert to standard user" class="btn btn-sm btn-warning"><i class="fas fa-user"></i></a>
+                {% elif user.admin and current_user.username == user.username %}
+                    <a href="{{ url_for('backend.change_pass', userid=user.public_id) }}" title="Change Password" class="btn btn-sm btn-primary"><i class="fas fa-key"></i></a>        
+            	{% else %}
+					<a href="{{ url_for('backend.change_pass', userid=user.public_id) }}" title="Change Password" class="btn btn-sm btn-primary"><i class="fas fa-key"></i></a>
+            		<a href="{{ url_for('backend.delete_user', userid=user.public_id) }}" title="Delete" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
+            		<a href="{{ url_for('backend.make_admin', userid=user.public_id) }}" title="Grant administrative rights" class="btn btn-sm btn-success"><i class="fas fa-user-shield"></i></a>
+            	{% endif %}
             </td>
         </tr>
         {% endfor %}
