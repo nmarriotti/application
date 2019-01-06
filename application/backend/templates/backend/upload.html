@@ -22,13 +22,6 @@ New Part - NLMK PartManager
 
                                 <form enctype="multipart/form-data" method="POST">
                                 {{ form.csrf_token }}
-                                                            {% with messages = get_flashed_messages() %}
-                                  {% if messages %}
-                                    {% for message in messages %}
-                                      <center><p style="color:red;">{{ message }}</p></center>
-                                    {% endfor %}
-                                  {% endif %}
-                            {% endwith %}
                                 <div class="form-group">
                                     {{ form.file(class="form-control") }}
                                     {% for error in form.file.errors %}
