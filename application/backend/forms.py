@@ -15,7 +15,7 @@ class PartForm(FlaskForm):
 	name = StringField("Description", validators=[DataRequired()])
 	vendor = StringField("Vendor", validators=[DataRequired()])
 	location = StringField("Location", validators=[DataRequired()])
-	desired_qty = IntegerField("Desired Quantity", validators=[DataRequired()])
+	#desired_qty = IntegerField("Desired Quantity", validators=[DataRequired()])
 	quantity = IntegerField("Quantity")
 
 class UploadForm(FlaskForm):

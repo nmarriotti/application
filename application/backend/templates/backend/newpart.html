@@ -44,12 +44,6 @@ New Part - NLMK PartManager
                                 {% endfor %}
                             </div>
                             <div class="form-group">
-                                {{ form.desired_qty(class="form-control", placeholder="Desired Quantity") }}
-                                {% for error in form.desired_qty.errors %}
-                                    <span style="color: red;">{{ error }}</span>
-                                {% endfor %}
-                            </div>
-                            <div class="form-group">
                                 {{ form.quantity(class="form-control", placeholder="Quantity") }}
                                 {% for error in form.quantity.errors %}
                                     <span style="color: red;">{{ error }}</span>

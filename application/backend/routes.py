@@ -71,7 +71,7 @@ def new_part():
 		part = Part.query.filter_by(partnum=form.partnum.data).first()
 		if not part:
 			# create part
-			part = Part(partnum=form.partnum.data, name=form.name.data, vendor=form.vendor.data, location=form.location.data, desired_qty=form.desired_qty.data, quantity=form.quantity.data, available_qty=form.quantity.data)
+			part = Part(partnum=form.partnum.data, name=form.name.data, vendor=form.vendor.data, location=form.location.data, desired_qty=int(form.quantity.data*.75), quantity=form.quantity.data, available_qty=form.quantity.data)
 			db.session.add(part)
 			db.session.commit()
 			flash(part.partnum + " has been added")

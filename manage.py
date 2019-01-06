@@ -10,7 +10,8 @@ if __name__ == "__main__":
 		if sys.argv[1] == 'initdb':
 			db.create_all()
 			admin_user = User(public_id=uuid.uuid4().hex, username="admin", password_hash=generate_password_hash("admin"), admin=True)
-			test_part = Part(partnum="1939J", name="Sample Part", vendor="Vendor", location="Drawer #1", desired_qty=100, quantity=50, available_qty=50)
+			desired_quantity=int(50*.75)
+			test_part = Part(partnum="1939J", name="Sample Part", vendor="Vendor", location="Drawer #1", desired_qty=desired_quantity, quantity=50, available_qty=50)
 			db.session.add(admin_user)
 			db.session.add(test_part)
 			db.session.commit()

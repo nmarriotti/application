@@ -68,21 +68,39 @@ def logout():
 	logout_user()
 	return redirect(url_for('frontend.index'))
 
-@mod.route('/browse')
+@mod.route('/browse', methods=['GET','POST'])
 @login_required
 def browse():
-	formsearch = SearchForm()
-	parts = Part.query.all()
-	return render_template('frontend/browse.html', formsearch=formsearch, parts=parts)
+	showResults=0
+	results=''
+	form = SearchForm()
+	#parts = Part.query.all()
+	if form.validate_on_submit():
+		if form.choices.data == 'partnum':
+			results = Part.query.filter(Part.partnum.like("%"+form.search.data+"%")).all()
+		if form.choices.data == 'partname':
+			results = Part.query.filter(Part.name.like("%"+form.search.data+"%")).all()
+		if form.choices.data == 'Vendor':
+			results = Part.query.filter(Part.vendor.like("%"+form.search.data+"%")).all()
+		showResults=1
+	if len(results) > 0:
+		return render_template('frontend/browse.html', hasParts=1, form=form, results=results,showResults=showResults)
+	return render_template('frontend/browse.html', hasParts=0, form=form, results=results,showResults=showResults)
 
-@mod.route('/')
+@mod.route('/dashboard')
 @login_required
-def index():
+def dashboard():
 	myparts = Tracker.query.filter_by(username=current_user.username).all()
 	if myparts:
 		return render_template('frontend/index.html', myparts=myparts, hasparts=1)
 	myparts=0
 	return render_template('frontend/index.html', myparts=0, hasparts=0)
+
+
+@mod.route('/')
+@login_required
+def index():
+	return redirect(url_for('frontend.browse'))
 		
 @mod.route('/login', methods=['GET', 'POST'])
 def login():
