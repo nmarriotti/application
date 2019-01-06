@@ -1,0 +1,64 @@
+{% extends 'backend/master.html' %}
+
+
+{% block title %}
+New Part - NLMK PartManager
+{% endblock %}
+
+{% block content %}
+
+<div class="col-md-10">
+		<ol class="breadcrumb">
+  <li><a href="{{ url_for('frontend.index') }}">Home</a></li>
+  <li><a href="{{ url_for('backend.index') }}">Admin Control Panel</a></li>
+  <li><a href="{{ url_for('backend.inventory') }}">Users</a></li>
+  <li class="active">Edit Part</li>
+</ol>
+		<h3>Edit Part</h3><hr>
+
+		<div class="col-md-4 col-md-offset-4">
+		                          <form method="POST">
+                            {{ form.csrf_token }}
+                            <div class="form-group">
+                                {{ form.partnum(class="form-control", placeholder="Part #") }}
+                                {% for error in form.partnum.errors %}
+                                    <span style="color: red;">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                            <div class="form-group">
+                                {{ form.name(class="form-control", placeholder="Description") }}
+                                {% for error in form.name.errors %}
+                                    <span style="color: red;">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                            <div class="form-group">
+                                {{ form.vendor(class="form-control", placeholder="Vendor") }}
+                                {% for error in form.vendor.errors %}
+                                    <span style="color: red;">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                            <div class="form-group">
+                                {{ form.location(class="form-control", placeholder="Location") }}
+                                {% for error in form.location.errors %}
+                                    <span style="color: red;">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                            <div class="form-group">
+                                {{ form.desired_qty(class="form-control", placeholder="Desired Quantity") }}
+                                {% for error in form.desired_qty.errors %}
+                                    <span style="color: red;">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                            <div class="form-group">
+                                {{ form.quantity(class="form-control", placeholder="Quantity") }}
+                                {% for error in form.quantity.errors %}
+                                    <span style="color: red;">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                            <div class="form-group text-center">
+                                <button type="submit" class="btn btn-success btn-lg">Save</button>
+                            </div>                  
+                        </form>
+</div>
+
+{% endblock %}

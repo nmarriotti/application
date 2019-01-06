@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, url_for, request, json, jsonify, redirect, flash, abort
 from flask_login import current_user, login_user, logout_user
-from application.models import db, User, Part
+from application.models import db, User, Part, Tracker
 from application import login_manager, app
 import uuid
 import datetime
@@ -86,6 +86,7 @@ def delete_part(partid):
 	part = Part.query.filter_by(id=partid).first()
 	if part:
 		db.session.delete(part)
+		tracker = Tracker.query.filter_by(partid=partid).delete()
 		db.session.commit()
 		flash("Part " + part.partnum + " has been deleted")
 		return redirect(url_for('backend.inventory'))
@@ -93,7 +94,11 @@ def delete_part(partid):
 @back.route('/edit-part/<partid>')
 @admin_required
 def edit_part(partid):
-	return "Edit Part"
+	form = PartForm()
+	if form.validate_on_submit():
+
+
+	return render_template('backend/editpart.html', form=form)
 
 @back.route('/upload/', methods=['GET', 'POST'])
 @admin_required
@@ -105,6 +110,7 @@ def upload():
 				flash("Error uploading file")
 				return redirect(url_for('backend.upload'))
 			flash("Inventory has been updated")
+			return redirect(url_for('backend.inventory'))
 		except:
 			flash("Error uploading file")
 	return render_template('backend/upload.html', form=form)
