@@ -31,3 +31,15 @@ class User(db.Model, UserMixin):
 
 	def __repr__(self):
 		return "<User '{}'>".format(self.username)
+
+class Part(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	partnum = db.Column(db.String(50), unique=True)
+	name = db.Column(db.String(50))
+	vendor = db.Column(db.String(30))
+	location = db.Column(db.String(30))
+	desired_qty = db.Column(db.Integer)
+	quantity = db.Column(db.Integer, default=0)
+
+
+

@@ -1,4 +1,4 @@
-{% extends 'frontend/master.html' %}
+{% extends 'backend/master.html' %}
 
 
 {% block title %}
@@ -6,14 +6,7 @@ Dashboard - NLMK PartManager
 {% endblock %}
 
 {% block content %}
-<div class="row">
 
-</div>
-<div class="col-md-1 text-center">
-	<h4>Navigation</h4>
-	<a href="#">Inventory</a><br>
-	<a href="{{ url_for('backend.users') }}">Users</a>
-</div>
 
 <div class="col-md-10">
 		<ol class="breadcrumb">
@@ -21,6 +14,16 @@ Dashboard - NLMK PartManager
   <li class="active">Admin Control Panel</li>
 </ol>
 		<h3>Admin Control Panel</h3><hr>
+
+		<p>Things to do:</p>
+		<ul>
+			<li>Search for parts</li>
+			<li>Edit part information</li>
+			<li>Checkout parts</li>
+			<li>Checkin parts</li>
+			<li>Show who has checked out what part(s)</li>
+			<li>Display message to admins when part quantity fall below a certain number.</li>
+		</ul>
 </div>
 
 {% endblock %}

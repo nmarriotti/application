@@ -10,3 +10,6 @@ class RegisterForm(FlaskForm):
 	username = StringField("Username", validators=[DataRequired()])
 	password = PasswordField("Password", validators=[DataRequired(), Length(min=7)])
 	confirm = PasswordField("Confirm", validators=[DataRequired(), Length(min=7), EqualTo('password', message="Passwords must match!")])
+
+class SearchForm(FlaskForm):
+	search = StringField("Find Parts", validators=[DataRequired()])

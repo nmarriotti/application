@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, url_for, request, json, jsonify, redirect, flash, abort
-from application.models import db, User
+from application.models import db, User, Part
 from application import login_manager, app
 from flask_login import current_user, login_required, login_user, logout_user
-from .forms import LoginForm, RegisterForm
+from .forms import LoginForm, RegisterForm, SearchForm
 from werkzeug.security import check_password_hash, generate_password_hash
 import uuid
 import datetime
@@ -48,7 +48,9 @@ def logout():
 @mod.route('/')
 @login_required
 def index():
-	return render_template('frontend/index.html')
+	formsearch = SearchForm()
+	parts = Part.query.all()
+	return render_template('frontend/index.html', formsearch=formsearch, parts=parts)
 
 
 @mod.route('/login', methods=['GET', 'POST'])

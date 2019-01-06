@@ -6,7 +6,7 @@
     <meta charset="utf-8">
 
     <!-- External CSS libraries -->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='frontend/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='frontend/css/bootstrap.css') }}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 </head>
 <body>
@@ -26,12 +26,7 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <form class="navbar-form navbar-left">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Find Parts">
-        </div>
-        <button type="submit" class="btn btn-info">Submit</button>
-      </form>
+        <!-- SEARCH FORM GOES HERE -->
       <ul class="nav navbar-nav navbar-right">
         {% if current_user.is_authenticated %}
 <form class="navbar-form navbar-left">
@@ -64,6 +59,13 @@
                                     {% endfor %}
                                   {% endif %}
                             {% endwith %}
+<div class="row">
+
+</div>
+<div class="col-md-1">
+  <a class="btn btn-default btn-md btn-block" href="{{ url_for('backend.inventory') }}"><i class="fas fa-box"></i> Inventory</a><br>
+  <a class="btn btn-default btn-md btn-block" href="{{ url_for('backend.users') }}"><i class="fas fa-user"></i> Users</a>
+</div>
 {% block content %}
 
 {% endblock %}

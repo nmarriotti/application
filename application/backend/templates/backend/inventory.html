@@ -1,0 +1,58 @@
+{% extends 'backend/master.html' %}
+
+
+{% block title %}
+Inventory - NLMK PartManager
+{% endblock %}
+
+{% block content %}
+
+<div class="col-md-10">
+		<ol class="breadcrumb">
+  <li><a href="{{ url_for('frontend.index') }}">Home</a></li>
+  <li><a href="{{ url_for('backend.index') }}">Admin Control Panel</a></li>
+  <li class="active">Inventory</li>
+</ol>
+		<h3>Inventory</h3>
+
+
+
+		<div class="panel panel-default">
+		  <!-- Default panel contents -->
+		  	<div class="panel-heading">
+		  		<a class="btn btn-success btn-md" href="{{ url_for('backend.new_part') }}"><i class="fas fa-plus"></i> New Part</a>
+		 		<a class="btn btn-default btn-md pull-right" href="#"><i class="fas fa-file-import"></i> Import .csv</a>
+			</div>
+		  <!-- Table -->
+		  <table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Part #</th>
+            <th>Description</th>
+            <th>Vendor</th>
+            <th>Quantity</th>
+            <th>Desired</th>
+            <th>Location</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    	{% for part in parts %}
+        <tr>
+            <td>{{ part.partnum | upper }}</td>
+            <td>{{ part.name | upper }}</td>
+            <td>{{ part.vendor | upper  }}</td>
+            <td>{{ part.quantity | upper  }}</td>
+            <td>{{ part.desired_qty | upper  }}</td>
+            <td>{{ part.location | upper  }}</td>
+            <td>
+            		<a href="{{ url_for('backend.edit_part', partid=part.id) }}" title="Edit" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
+            		<a href="{{ url_for('backend.delete_part', partid=part.id) }}" title="Delete" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+		</div>
+
+{% endblock %}
