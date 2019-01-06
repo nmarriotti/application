@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, url_for, request, json, jsonify, redirect, flash, abort
-from application.models import db, User, Part
+from application.models import db, User, Part, Tracker
 from application import login_manager, app
 from flask_login import current_user, login_required, login_user, logout_user
 from .forms import LoginForm, RegisterForm, SearchForm
@@ -39,19 +39,30 @@ def token_required(f):
 		return f(*args, **kwargs)
 	return decorated
 
+@mod.route('/view/<partid>')
+@login_required
+def view_part(partid):
+	part = Part.query.filter_by(partnum=partid).first()
+	if part:
+		return render_template('frontend/view.html', part=part)
 
 @mod.route('/logout')
 def logout():
 	logout_user()
 	return redirect(url_for('frontend.index'))
 
+@mod.route('/browse')
+@login_required
+def browse():
+	formsearch = SearchForm()
+	parts = Part.query.all()
+	return render_template('frontend/browse.html', formsearch=formsearch, parts=parts)
+
 @mod.route('/')
 @login_required
 def index():
-	formsearch = SearchForm()
-	parts = Part.query.all()
-	return render_template('frontend/index.html', formsearch=formsearch, parts=parts)
-
+	myparts = Tracker.query.filter_by(username=current_user.username).first()
+	return render_template('frontend/index.html', myparts=myparts)
 
 @mod.route('/login', methods=['GET', 'POST'])
 def login():

@@ -13,17 +13,22 @@ Dashboard - NLMK PartManager
 
 <div class="col-md-10">
 
-      <h3>Current Inventory</h3>
-        
-            <div class="list-group">
-        {% for part in parts %}
-            {% if part.quantity > 0 %}
-                  <a href="#" class="list-group-item">{{ part.partnum | upper }} {{ part.name | upper }}</a>
-            {% else %}
-                  <a href="#" style="font-color:color.red;" class="list-group-item">{{ part.partnum | upper }} {{ part.name | upper }} <p class="pull-right text-warning">OUT OF STOCK</p></a> 
-            {% endif %} 
-        {% endfor %}
+      <h3>Your Parts</h3>
+
+        {% if myparts > 0 %}
+            {% for part in myparts %}
+              {% if mypart > 0 %}
+
+              {% else %}
+
+              {% endif %}
+            {% endfor %}
+        {% else %}
+            <div class="well">
+              <p>No results to display at this time.</p>
             </div>
+        {% endif %}
+
         
 
 

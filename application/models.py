@@ -41,5 +41,13 @@ class Part(db.Model):
 	desired_qty = db.Column(db.Integer)
 	quantity = db.Column(db.Integer, default=0)
 
+class Tracker(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	username = db.Column(db.String(50))
+	partid = db.Column(db.Integer)
+	quantity = db.Column(db.Integer)
+	date_in = db.Column(db.Integer)
+	date_out = db.Column(db.DateTime)
+
 
 

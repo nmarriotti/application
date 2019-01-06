@@ -1,0 +1,38 @@
+{% extends 'frontend/master.html' %}
+
+
+{% block title %}
+Dashboard - NLMK PartManager
+{% endblock %}
+
+{% block content %}
+
+<div class="col-md-1 text-center">
+
+</div>
+
+<div class="col-md-10">
+
+        <div class="well">
+          <h4>How to checkout parts</h4>
+          <ul>
+            <li>Locate the part you need.</li>
+            <li>Click on the requested part.</li>
+            <li>Enter desired quantity.</li>
+            <li>Click <button class="btn btn-success">Checkout</button></li>
+          </ul>
+        </div>
+      <h3>Current Inventory</h3>
+            <div class="list-group">
+        {% for part in parts %}
+            {% if part.quantity > 0 %}
+                  <a href="{{ url_for('frontend.view_part', partid=part.partnum) }}" class="list-group-item">{{ part.partnum | upper }} {{ part.name | upper }}</a>
+            {% else %}
+                  <a style="font-color:color.red;" class="list-group-item">{{ part.partnum | upper }} {{ part.name | upper }} <p class="pull-right text-warning">OUT OF STOCK</p></a> 
+            {% endif %} 
+        {% endfor %}
+            </div>
+        
+
+
+{% endblock %}
