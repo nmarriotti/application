@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, url_for, request, json, jsonify, r
 from application.models import db, User, Part, Tracker
 from application import login_manager, app
 from flask_login import current_user, login_required, login_user, logout_user
-from .forms import LoginForm, RegisterForm, SearchForm
+from .forms import LoginForm, RegisterForm, SearchForm, CheckoutPart
 from werkzeug.security import check_password_hash, generate_password_hash
 import uuid
 import datetime
@@ -39,12 +39,29 @@ def token_required(f):
 		return f(*args, **kwargs)
 	return decorated
 
-@mod.route('/view/<partid>')
+@mod.route('/view/<partid>', methods=['GET','POST'])
 @login_required
 def view_part(partid):
+	form = CheckoutPart()
 	part = Part.query.filter_by(partnum=partid).first()
+	if form.validate_on_submit():
+		if form.quantity.data > part.available_qty:
+			flash("Quantity exceeds available!")
+		else:
+			# check if user already has the same part
+			samepart = Tracker.query.filter_by(username=current_user.username,partid=part.id).first()
+			if samepart:
+				samepart.quantity += form.quantity.data
+				part.available_qty -= form.quantity.data
+				db.session.commit()
+			else:
+				mypart = Tracker(username=current_user.username,partid=part.id,quantity=form.quantity.data,date_out=datetime.datetime.now(), partnum=part.partnum,partname=part.name)
+				part.available_qty -= form.quantity.data
+				db.session.add(mypart)
+				db.session.commit()
+			return redirect(url_for('frontend.index'))
 	if part:
-		return render_template('frontend/view.html', part=part)
+		return render_template('frontend/view.html', part=part, form=form)
 
 @mod.route('/logout')
 def logout():
@@ -61,7 +78,7 @@ def browse():
 @mod.route('/')
 @login_required
 def index():
-	myparts = Tracker.query.filter_by(username=current_user.username).first()
+	myparts = Tracker.query.all()
 	if not myparts:
 		myparts=0
 	return render_template('frontend/index.html', myparts=myparts)

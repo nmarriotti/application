@@ -6,6 +6,7 @@
 
 
 {% block content %}
+
 <!-- Content area start -->
     <div class="container">
         <div class="row">
@@ -13,15 +14,29 @@
                     <div class="heading text-center">
                         <h3>{{ part.partnum | upper }} {{ part.name | upper }}</h3>
                     </div>
-                            {% with messages = get_flashed_messages() %}
+
+                            <div class="well">
+                                <form method="POST">
+                                {{ form.csrf_token }}
+                                <p>Available: {{ part.available_qty }}</p>
+                                                            {% with messages = get_flashed_messages() %}
                                   {% if messages %}
                                     {% for message in messages %}
                                       <center><p style="color:red;">{{ message }}</p></center>
                                     {% endfor %}
                                   {% endif %}
                             {% endwith %}
-
-                            <p>View part info here.</p>
+                                <div class="form-group">
+                                    {{ form.quantity(class="form-control", placeholder="Qty") }}
+                                    {% for error in form.quantity.errors %}
+                                        <span style="color: red;">{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                                <div class="form-group text-center">
+                                    <button type="submit" class="btn btn-success btn-lg btn-block"><i class="fas fa-shopping-cart"></i> Checkout</button>
+                                </div>                  
+                                </form>
+                            </div>
 
 
 

@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms.fields import StringField, PasswordField
+from wtforms.fields import StringField, PasswordField, IntegerField
 from wtforms.validators import DataRequired, EqualTo, Length
 
 class LoginForm(FlaskForm):
@@ -13,3 +13,6 @@ class RegisterForm(FlaskForm):
 
 class SearchForm(FlaskForm):
 	search = StringField("Find Parts", validators=[DataRequired()])
+
+class CheckoutPart(FlaskForm):
+	quantity = IntegerField("Quantity", validators=[DataRequired()])

@@ -25,7 +25,7 @@ Dashboard - NLMK PartManager
       <h3>Current Inventory</h3>
             <div class="list-group">
         {% for part in parts %}
-            {% if part.quantity > 0 %}
+            {% if part.available_qty > 0 %}
                   <a href="{{ url_for('frontend.view_part', partid=part.partnum) }}" class="list-group-item">{{ part.partnum | upper }} {{ part.name | upper }}</a>
             {% else %}
                   <a style="font-color:color.red;" class="list-group-item">{{ part.partnum | upper }} {{ part.name | upper }} <p class="pull-right text-warning">OUT OF STOCK</p></a> 

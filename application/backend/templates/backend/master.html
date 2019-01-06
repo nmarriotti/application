@@ -49,14 +49,14 @@
 <form class="navbar-form navbar-left">
 <!-- Single button -->
 <div class="btn-group">
-  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-   {{ current_user.username }} <span class="caret"></span>
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+   <i class="fas fa-user"></i> {{ current_user.username }} <span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
      {% if current_user.admin %}
-          <li><a href="{{ url_for('backend.index') }}"><i class="fas fa-sign-out"></i> Manage (Admin Only)</a></li>
+          <li><a href="{{ url_for('backend.index') }}"><i class="fas fa-tools"></i> Manage (Admin Only)</a></li>
      {% endif %}
-    <li><a href="{{ url_for('frontend.logout') }}"><i class="fas fa-sign-out"></i> Logout</a></li>
+    <li><a href="{{ url_for('frontend.logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
   </ul>
 </div>
         {% endif %}

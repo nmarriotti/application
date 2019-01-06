@@ -12,7 +12,7 @@ class User(db.Model, UserMixin):
 	username = db.Column(db.String(120), unique=True)
 	password_hash = db.Column(db.String)
 	admin = db.Column(db.Boolean, default=False)
-	created_on = db.Column(db.DateTime, default=datetime.datetime.utcnow())
+	created_on = db.Column(db.DateTime, default=datetime.datetime.now())
 	
 	@property
 	def password(self):
@@ -40,11 +40,14 @@ class Part(db.Model):
 	location = db.Column(db.String(30))
 	desired_qty = db.Column(db.Integer)
 	quantity = db.Column(db.Integer, default=0)
+	available_qty = db.Column(db.Integer, default=0)
 
 class Tracker(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	username = db.Column(db.String(50))
 	partid = db.Column(db.Integer)
+	partnum = db.Column(db.String(50))
+	partname = db.Column(db.String(50))
 	quantity = db.Column(db.Integer)
 	date_in = db.Column(db.Integer)
 	date_out = db.Column(db.DateTime)

@@ -42,7 +42,27 @@ Inventory - NLMK PartManager
             <td>{{ part.partnum | upper }}</td>
             <td>{{ part.name | upper }}</td>
             <td>{{ part.vendor | upper  }}</td>
-            <td>{{ part.quantity | upper  }}</td>
+            <td>
+            {% if ((part.available_qty/part.quantity)*100) >= 80 %}
+            <div class="progress">
+              <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ (part.available_qty/part.quantity)*100 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ (part.available_qty/part.quantity)*100 }}%;">
+                    <span>{{ part.available_qty }}/{{ part.quantity | upper  }}</span>
+            </div>
+            </div>
+            {% elif ((part.available_qty/part.quantity)*100) >= 60 %}
+            <div class="progress">
+              <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{ (part.available_qty/part.quantity)*100 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ (part.available_qty/part.quantity)*100 }}%;">
+                    {{ part.available_qty }}/{{ part.quantity | upper  }}
+            </div>
+            </div>
+            {% elif ((part.available_qty/part.quantity)*100) < 60 %}
+            <div class="progress">
+              <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{ (part.available_qty/part.quantity)*100 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ (part.available_qty/part.quantity)*100 }}%;">
+                    <span>{{ part.available_qty }}/{{ part.quantity | upper  }}</span>
+            </div>
+            </div>
+            {% endif %}
+</td>
             <td>{{ part.desired_qty | upper  }}</td>
             <td>{{ part.location | upper  }}</td>
             <td>

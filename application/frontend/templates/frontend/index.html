@@ -15,19 +15,42 @@ Dashboard - NLMK PartManager
 
       <h3>Your Parts</h3>
 
-        {% if myparts > 0 %}
-            {% for part in myparts %}
-              {% if mypart > 0 %}
+{% if myparts > 0 %}
+      <!-- Table -->
+      <table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Part #</th>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Date Out</th>
+            <th>Date In</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+      {% for part in myparts %}
+        <tr>
+            <td>{{ part.partnum | upper }}</td>
+            <td>{{ part.partname | upper }}</td>
+            <td>{{ part.quantity | upper  }}</td>
+            <td>{{ part.date_out | upper  }}</td>
+            <td>{{ part.date_in | upper  }}</td>
+            <td>
+                <a href="#" title="Checkin the part" class="btn btn-sm btn-success"><i class="fas fa-check"></i> Checkin</a>
 
-              {% else %}
-
-              {% endif %}
-            {% endfor %}
-        {% else %}
-            <div class="well">
-              <p>No results to display at this time.</p>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+           <div class="well">
+              <p>No results to display at this time <a href="{{ url_for('frontend.browse') }}" class="btn btn-default">Browse Inventory</a></p>
             </div>
-        {% endif %}
+{% endif %}
+        
+ 
 
         
 
