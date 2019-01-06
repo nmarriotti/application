@@ -79,12 +79,14 @@ def browse():
 @login_required
 def index():
 	myparts = Tracker.query.filter_by(username=current_user.username).all()
-	if not myparts:
+	if myparts:
+		return render_template('frontend/index.html', myparts=myparts)
 		myparts=0
 		return render_template('frontend/index.html', myparts=0)
 	else:
-		return render_template('frontend/index.html', myparts=myparts)
-
+		myparts=0
+		return render_template('frontend/index.html', myparts=0)
+		
 @mod.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
