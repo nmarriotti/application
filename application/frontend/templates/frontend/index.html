@@ -23,7 +23,7 @@ Dashboard - NLMK PartManager
             {% if part.quantity > 0 %}
                   <a href="#" class="list-group-item">{{ part.partnum | upper }} {{ part.name | upper }}</a>
             {% else %}
-                  <a href="#" style="font-color:color.red;" class="list-group-item">{{ part.partnum | upper }} {{ part.name | upper }} <span class="badge">OUT OF STOCK</span></a> 
+                  <a href="#" style="font-color:color.red;" class="list-group-item">{{ part.partnum | upper }} {{ part.name | upper }} <p class="pull-right text-warning">OUT OF STOCK</p></a> 
             {% endif %} 
         {% endfor %}
             </div>
