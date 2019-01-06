@@ -80,12 +80,9 @@ def browse():
 def index():
 	myparts = Tracker.query.filter_by(username=current_user.username).all()
 	if myparts:
-		return render_template('frontend/index.html', myparts=myparts)
-		myparts=0
-		return render_template('frontend/index.html', myparts=0)
-	else:
-		myparts=0
-		return render_template('frontend/index.html', myparts=0)
+		return render_template('frontend/index.html', myparts=myparts, hasparts=1)
+	myparts=0
+	return render_template('frontend/index.html', myparts=0, hasparts=0)
 		
 @mod.route('/login', methods=['GET', 'POST'])
 def login():
