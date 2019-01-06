@@ -5,9 +5,10 @@ from application import login_manager, app
 import uuid
 import datetime
 import jwt
-from .forms import LoginForm, ChangePasswordForm, PartForm
+from .forms import LoginForm, ChangePasswordForm, PartForm, UploadForm
 from functools import wraps
 from werkzeug.security import generate_password_hash, check_password_hash
+from .upload import allowed_file, upload_file
 
 back = Blueprint('backend', __name__, template_folder='templates')
 
@@ -93,6 +94,17 @@ def delete_part(partid):
 @admin_required
 def edit_part(partid):
 	return "Edit Part"
+
+@back.route('/upload/', methods=['GET', 'POST'])
+@admin_required
+def upload():
+	form = UploadForm()
+	if form.validate_on_submit():
+		if not upload_file(request.files):
+			flash("Error uploading file")
+			return redirect(url_for('backend.upload'))
+		flash("Inventory has been updated")
+	return render_template('backend/upload.html', form=form)
 
 @back.route('/changepassword/<userid>', methods=['GET', 'POST'])
 @admin_required

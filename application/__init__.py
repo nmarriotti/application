@@ -10,6 +10,7 @@ app.debug = True
 app.config['SECRET_KEY'] = '\xbc\x15\xc9\xcd\xc1=\x83\xb6\x9c\xf7\xd5\x83\x0b\x0cV\x18\xd1w$\x98\xbck0.'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['UPLOAD_FOLDER'] = basedir + '/static/uploads/'
 
 login_manager = LoginManager()
 login_manager.session_protection = "strong"

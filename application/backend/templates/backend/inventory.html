@@ -21,7 +21,7 @@ Inventory - NLMK PartManager
 		  <!-- Default panel contents -->
 		  	<div class="panel-heading">
 		  		<a class="btn btn-success btn-md" href="{{ url_for('backend.new_part') }}"><i class="fas fa-plus"></i> New Part</a>
-		 		<a class="btn btn-default btn-md pull-right" href="#"><i class="fas fa-file-import"></i> Import .csv</a>
+		 		<a class="btn btn-default btn-md pull-right" href="{{ url_for('backend.upload') }}"><i class="fas fa-file-import"></i> Import .csv</a>
 			</div>
 		  <!-- Table -->
 		  <table class="table table-striped">

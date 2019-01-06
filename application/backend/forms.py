@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms.fields import StringField, DecimalField, IntegerField, BooleanField, TextAreaField, FileField, PasswordField, SubmitField
+from wtforms.fields import StringField, DecimalField, IntegerField, FileField, BooleanField, TextAreaField, FileField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Length, EqualTo
 
 class LoginForm(FlaskForm):
@@ -18,3 +18,5 @@ class PartForm(FlaskForm):
 	desired_qty = IntegerField("Desired Quantity", validators=[DataRequired()])
 	quantity = IntegerField("Quantity")
 
+class UploadForm(FlaskForm):
+    file = FileField()
