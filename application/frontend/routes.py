@@ -81,7 +81,9 @@ def index():
 	myparts = Tracker.query.filter_by(username=current_user.username).all()
 	if not myparts:
 		myparts=0
-	return render_template('frontend/index.html', myparts=myparts)
+		return render_template('frontend/index.html', myparts=0)
+	else:
+		return render_template('frontend/index.html', myparts=myparts)
 
 @mod.route('/login', methods=['GET', 'POST'])
 def login():
