@@ -62,7 +62,7 @@ def browse():
 @login_required
 def index():
 	myparts = Tracker.query.filter_by(username=current_user.username).first()
-	if len(myparts) <= 0:
+	if not myparts:
 		myparts=0
 	return render_template('frontend/index.html', myparts=myparts)
 
