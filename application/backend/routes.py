@@ -89,15 +89,14 @@ def delete_part(partid):
 		tracker = Tracker.query.filter_by(partid=partid).delete()
 		db.session.commit()
 		flash("Part " + part.partnum + " has been deleted")
-		return redirect(url_for('backend.inventory'))
+	return redirect(url_for('backend.inventory'))
 
 @back.route('/edit-part/<partid>')
 @admin_required
 def edit_part(partid):
 	form = PartForm()
 	if form.validate_on_submit():
-
-
+		"form submitted"
 	return render_template('backend/editpart.html', form=form)
 
 @back.route('/upload/', methods=['GET', 'POST'])
