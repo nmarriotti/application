@@ -43,7 +43,23 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <!-- SEARCH FORM GOES HERE -->
+        <ul class="nav navbar-nav">
+        <li><a href="{{ url_for('backend.inventory') }}"><i class="fas fa-box"></i> Inventory</a></li>
+        <li><a href="{{ url_for('backend.users') }}"><i class="fas fa-user"></i> Users</a></li>
+        <!--
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li> -->
+      </ul>
       <ul class="nav navbar-nav navbar-right">
         {% if current_user.is_authenticated %}
 <form class="navbar-form navbar-left">
@@ -80,8 +96,7 @@
 
 </div>
 <div class="col-md-1">
-  <a class="btn btn-default btn-md btn-block" href="{{ url_for('backend.inventory') }}"><i class="fas fa-box"></i> Inventory</a><br>
-  <a class="btn btn-default btn-md btn-block" href="{{ url_for('backend.users') }}"><i class="fas fa-user"></i> Users</a>
+
 </div>
 {% block content %}
 
