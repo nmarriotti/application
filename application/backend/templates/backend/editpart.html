@@ -20,37 +20,31 @@ New Part - NLMK PartManager
 		                          <form method="POST">
                             {{ form.csrf_token }}
                             <div class="form-group">
-                                {{ form.partnum(class="form-control", placeholder="Part #") }}
+                                {{ form.partnum(class="form-control", placeholder="Part Number", value=part.partnum) }}
                                 {% for error in form.partnum.errors %}
                                     <span style="color: red;">{{ error }}</span>
                                 {% endfor %}
                             </div>
                             <div class="form-group">
-                                {{ form.name(class="form-control", placeholder="Description") }}
+                                {{ form.name(class="form-control", placeholder="Description", value=part.name) }}
                                 {% for error in form.name.errors %}
                                     <span style="color: red;">{{ error }}</span>
                                 {% endfor %}
                             </div>
                             <div class="form-group">
-                                {{ form.vendor(class="form-control", placeholder="Vendor") }}
+                                {{ form.vendor(class="form-control", placeholder="Vendor", value=part.vendor) }}
                                 {% for error in form.vendor.errors %}
                                     <span style="color: red;">{{ error }}</span>
                                 {% endfor %}
                             </div>
                             <div class="form-group">
-                                {{ form.location(class="form-control", placeholder="Location") }}
+                                {{ form.location(class="form-control", placeholder="Location", value=part.location) }}
                                 {% for error in form.location.errors %}
                                     <span style="color: red;">{{ error }}</span>
                                 {% endfor %}
                             </div>
                             <div class="form-group">
-                                {{ form.desired_qty(class="form-control", placeholder="Desired Quantity") }}
-                                {% for error in form.desired_qty.errors %}
-                                    <span style="color: red;">{{ error }}</span>
-                                {% endfor %}
-                            </div>
-                            <div class="form-group">
-                                {{ form.quantity(class="form-control", placeholder="Quantity") }}
+                                {{ form.quantity(class="form-control", placeholder="Quantity", value=part.quantity) }}
                                 {% for error in form.quantity.errors %}
                                     <span style="color: red;">{{ error }}</span>
                                 {% endfor %}

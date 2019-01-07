@@ -59,7 +59,7 @@ def view_part(partid):
 				part.available_qty -= form.quantity.data
 				db.session.add(mypart)
 				db.session.commit()
-			return redirect(url_for('frontend.index'))
+			return redirect(url_for('frontend.dashboard'))
 	if part:
 		return render_template('frontend/view.html', part=part, form=form)
 

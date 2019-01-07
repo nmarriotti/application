@@ -91,13 +91,28 @@ def delete_part(partid):
 		flash("Part " + part.partnum + " has been deleted")
 	return redirect(url_for('backend.inventory'))
 
-@back.route('/edit-part/<partid>')
+@back.route('/edit-part/<partid>', methods=['GET','POST'])
 @admin_required
 def edit_part(partid):
 	form = PartForm()
+	part = Part.query.filter_by(id=partid).first()
+	tracker = Tracker.query.filter_by(partid=partid).all()
 	if form.validate_on_submit():
-		"form submitted"
-	return render_template('backend/editpart.html', form=form)
+		part.available_qty = form.quantity.data
+		if tracker:
+			for item in tracker:
+				item.partnum = form.partnum.data
+				item.partname = form.name.data
+				part.available_qty -= item.quantity
+		part.partnum = form.partnum.data
+		part.name = form.name.data
+		part.vendor = form.vendor.data
+		part.location = form.location.data
+		part.quantity = form.quantity.data
+		db.session.commit()
+		flash("Part " + part.partnum + " has been updated")
+		return redirect(url_for('backend.inventory'))
+	return render_template('backend/editpart.html', form=form, part=part)
 
 @back.route('/upload/', methods=['GET', 'POST'])
 @admin_required

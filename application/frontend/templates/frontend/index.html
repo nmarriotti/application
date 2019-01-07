@@ -24,7 +24,6 @@ Dashboard - NLMK PartManager
             <th>Description</th>
             <th>Quantity</th>
             <th>Date Out</th>
-            <th>Date In</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -35,7 +34,6 @@ Dashboard - NLMK PartManager
             <td>{{ part.partname | upper }}</td>
             <td>{{ part.quantity | upper  }}</td>
             <td>{{ part.date_out | upper  }}</td>
-            <td>{{ part.date_in | upper  }}</td>
             <td>
                 <a href="{{ url_for('frontend.checkin', partid=part.partid) }}" title="Checkin the part" class="btn btn-sm btn-success"><i class="fas fa-check"></i> Checkin</a>
 

@@ -49,7 +49,6 @@ class Tracker(db.Model):
 	partnum = db.Column(db.String(50))
 	partname = db.Column(db.String(50))
 	quantity = db.Column(db.Integer)
-	date_in = db.Column(db.Integer)
 	date_out = db.Column(db.DateTime)
 
 
