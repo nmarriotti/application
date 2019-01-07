@@ -23,7 +23,8 @@ def upload_file(request):
 		Part.query.delete()
 		for line in fh:
 			parts = line.split(",")
-			part = Part(partnum=parts[0], name=parts[1], vendor=parts[2], location=parts[3], desired_qty=parts[4], quantity=parts[5], available_qty=parts[6])
+			desired_qty=int(int(parts[4])*.75)
+			part = Part(partnum=parts[0], name=parts[1], vendor=parts[2], location=parts[3], quantity=parts[4], desired_qty=desired_qty, available_qty=parts[5])
 			db.session.add(part)
 		db.session.commit()
 		return file.filename

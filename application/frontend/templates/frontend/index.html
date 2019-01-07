@@ -37,7 +37,7 @@ Dashboard - NLMK PartManager
             <td>{{ part.date_out | upper  }}</td>
             <td>{{ part.date_in | upper  }}</td>
             <td>
-                <a href="#" title="Checkin the part" class="btn btn-sm btn-success"><i class="fas fa-check"></i> Checkin</a>
+                <a href="{{ url_for('frontend.checkin', partid=part.partid) }}" title="Checkin the part" class="btn btn-sm btn-success"><i class="fas fa-check"></i> Checkin</a>
 
             </td>
         </tr>

@@ -104,14 +104,14 @@ def edit_part(partid):
 def upload():
 	form = UploadForm()
 	if form.validate_on_submit():
-		try:
-			if not upload_file(request.files):
-				flash("Error uploading file")
-				return redirect(url_for('backend.upload'))
-			flash("Inventory has been updated")
-			return redirect(url_for('backend.inventory'))
-		except:
+		#try:
+		if not upload_file(request.files):
 			flash("Error uploading file")
+			return redirect(url_for('backend.upload'))
+		flash("Inventory has been updated")
+		return redirect(url_for('backend.inventory'))
+		#except:
+			#flash("Error uploading file")
 	return render_template('backend/upload.html', form=form)
 
 @back.route('/changepassword/<userid>', methods=['GET', 'POST'])

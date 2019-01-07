@@ -63,6 +63,28 @@ def view_part(partid):
 	if part:
 		return render_template('frontend/view.html', part=part, form=form)
 
+@mod.route('/checkin/<partid>', methods=['GET','POST'])
+@login_required
+def checkin(partid):
+	form = CheckoutPart()
+	part = Part.query.filter_by(id=partid).first()
+	mypart = Tracker.query.filter_by(partid=partid).first()
+	if form.validate_on_submit():
+		if form.quantity.data > mypart.quantity:
+			flash("Quantity exceeds available!")
+		else:
+			# check if user already has the same part
+			if form.quantity.data == mypart.quantity:
+				part.available_qty += form.quantity.data
+				db.session.delete(mypart)
+				db.session.commit()
+			else:
+				part.available_qty += form.quantity.data
+				mypart.quantity -= form.quantity.data
+			return redirect(url_for('frontend.index'))
+	if part:
+		return render_template('frontend/checkin.html', part=part, form=form, mypart=mypart)
+
 @mod.route('/logout')
 def logout():
 	logout_user()
