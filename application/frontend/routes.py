@@ -81,6 +81,7 @@ def checkin(partid):
 			else:
 				part.available_qty += form.quantity.data
 				mypart.quantity -= form.quantity.data
+				db.session.commit()
 			return redirect(url_for('frontend.index'))
 	if part:
 		return render_template('frontend/checkin.html', part=part, form=form, mypart=mypart)
