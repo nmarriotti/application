@@ -1,0 +1,44 @@
+{% extends 'backend/master.html' %}
+
+
+{% block title %}
+History- NLMK PartManager
+{% endblock %}
+
+{% block content %}
+
+<div class="col-md-10">
+		<ol class="breadcrumb">
+  <li><a href="{{ url_for('frontend.index') }}">Home</a></li>
+  <li><a href="{{ url_for('backend.index') }}">Admin Control Panel</a></li>
+  <li><a href="{{ url_for('backend.inventory') }}">Inventory</a></li>
+  <li class="active">History</li>
+</ol>
+		<h3>Tracking - {{ part.partnum }} {{ part.name }}</h3><hr>
+
+      <!-- Table -->
+      {% if tracker %}
+      <table class="table table-striped">
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Quantity</th>
+            <th>Date Out</th>
+        </tr>
+    </thead>
+    <tbody>
+      {% for userpart in tracker %}
+        <tr>
+            <td>{{ userpart.username | upper }}</td>
+            <td>{{ userpart.quantity | upper  }}</td>
+            <td>{{ userpart.date_out | upper  }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No history available.</p>
+{% endif %}
+</div>
+
+{% endblock %}

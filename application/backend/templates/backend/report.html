@@ -1,0 +1,43 @@
+{% extends 'backend/master.html' %}
+
+
+{% block title %}
+History- NLMK PartManager
+{% endblock %}
+
+{% block content %}
+
+<div class="col-md-10">
+		<ol class="breadcrumb">
+  <li><a href="{{ url_for('frontend.index') }}">Home</a></li>
+  <li><a href="{{ url_for('backend.index') }}">Admin Control Panel</a></li>
+  <li><a href="{{ url_for('backend.inventory') }}">Inventory</a></li>
+  <li class="active">History</li>
+</ol>
+		<h3>Report</h3>
+        <p>Generated: {{ datenow }}<hr>
+
+      <!-- Table -->
+      <table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Part #</th>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Location</th>
+        </tr>
+    </thead>
+    <tbody>
+      {% for part in parts %}
+        <tr>
+            <td>{{ part.partnum | upper }}</td>
+            <td>{{ part.name | upper  }}</td>
+            <td>{{ part.available_qty | upper }}/{{ part.quantity | upper  }}</td>
+            <td>{{ part.location | upper  }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+
+{% endblock %}

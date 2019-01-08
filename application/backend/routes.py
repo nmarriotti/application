@@ -43,6 +43,12 @@ def inventory():
 	parts = Part.query.all()
 	return render_template('backend/inventory.html', parts=parts)
 
+@back.route('/report')
+@admin_required
+def report():
+	parts = Part.query.order_by(Part.location).all()
+	return render_template('backend/report.html', parts=parts, datenow=datetime.datetime.now())
+
 @back.route('/login', methods=['GET', 'POST'])
 def login():
     return redirect(url_for('frontend.login'))
@@ -113,6 +119,13 @@ def edit_part(partid):
 		flash("Part " + part.partnum + " has been updated")
 		return redirect(url_for('backend.inventory'))
 	return render_template('backend/editpart.html', form=form, part=part)
+
+@back.route('/info/<partid>')
+@admin_required
+def info(partid):
+	part = Part.query.filter_by(id=partid).first()
+	tracker = Tracker.query.filter_by(partid=partid).order_by(Tracker.date_out).all()
+	return render_template('backend/info.html', part=part, tracker=tracker)
 
 @back.route('/upload/', methods=['GET', 'POST'])
 @admin_required

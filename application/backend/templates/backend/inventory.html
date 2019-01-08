@@ -21,12 +21,14 @@ Inventory - NLMK PartManager
 		  <!-- Default panel contents -->
 		  	<div class="panel-heading">
 		  		<a class="btn btn-success btn-md" href="{{ url_for('backend.new_part') }}"><i class="fas fa-plus"></i> New Part</a>
+                <a class="btn btn-default btn-md" href="{{ url_for('backend.report') }}"><i class="fas fa-file-alt"></i> Report by Location</a>
 		 		<a class="btn btn-default btn-md pull-right" href="{{ url_for('backend.upload') }}"><i class="fas fa-file-import"></i> Import .csv</a>
 			</div>
 		  <!-- Table -->
 		  <table class="table table-striped">
     <thead>
         <tr>
+            <th>Track</th>
             <th>Part #</th>
             <th>Description</th>
             <th>Vendor</th>
@@ -39,6 +41,7 @@ Inventory - NLMK PartManager
     <tbody>
     	{% for part in parts %}
         <tr>
+            <td><a href="{{ url_for('backend.info', partid=part.id) }}" title="Track inventory" class="btn btn-sm btn-info"><i class="fas fa-info-circle"></i></a></td>
             <td>{{ part.partnum | upper }}</td>
             <td>{{ part.name | upper }}</td>
             <td>{{ part.vendor | upper  }}</td>
